@@ -1,4 +1,3 @@
-
 /*=================================
 =            Variables            =
 =================================*/
@@ -115,7 +114,7 @@ function game(){
   }
 }  
 
-function startGame()
+function start_game()
 {
   GameStatus = "start";
   document.getElementById("status").innerHTML = "Game Is Loading";
@@ -146,22 +145,22 @@ function changeGameStatud(character){
 
 //initialize
 function instializeInSetup(character){
-	frameRate(120);
-	
-	character.scale=0.35;
-	initializeCharacterStatus(character)
+  frameRate(120);
+  
+  character.scale=0.35;
+  initializeCharacterStatus(character)
 
   bricks.displace(bricks);
-	platforms.displace(platforms);
-	coins.displace(coins);
-	coins.displace(platforms);
-	coins.collide(pipes);
-	coins.displace(bricks);		
+  platforms.displace(platforms);
+  coins.displace(coins);
+  coins.displace(platforms);
+  coins.collide(pipes);
+  coins.displace(bricks);   
 
   // change the scale of clouds
-	clouds.forEach(function(element){
-		element.scale=random(1,2);
-	})
+  clouds.forEach(function(element){
+    element.scale=random(1,2);
+  })
 }
 
 function initializeCharacterStatus(character){
@@ -310,16 +309,16 @@ function manualControl(character){
 
 /* Movements of character */
 function jumping(character){
-	if( (noseY < 168  &&character.live) || (touchIsDown&&character.live) ){
+  if( (noseY < 168  &&character.live) || (touchIsDown&&character.live) ){
     character.velocity.y+=gameConfig.jump;
     mario_jump.play();
-	}
+  }
 }
 
 
 /* Movements of character */
 function falling(character){
-	character.velocity.y += gameConfig.gravity;
+  character.velocity.y += gameConfig.gravity;
   character.changeAnimation('jump');
 }
 
@@ -327,39 +326,39 @@ function falling(character){
 /* See if  obj1 stand on obj2, mainly for see if standing on the objcs*/
 function standOnObjs(obj1,obj2){
   
-	var obj1_Left=leftSide(obj1);
-	var obj1_Right=rightSide(obj1);
-	var obj1_Up=upSide(obj1);
-	var obj1_Down=downSide(obj1);
+  var obj1_Left=leftSide(obj1);
+  var obj1_Right=rightSide(obj1);
+  var obj1_Up=upSide(obj1);
+  var obj1_Down=downSide(obj1);
 
-	var obj2_Left=leftSide(obj2);
-	var obj2_Right=rightSide(obj2);
-	var obj2_Up=upSide(obj2);
-	var obj2_Down=downSide(obj2);
+  var obj2_Left=leftSide(obj2);
+  var obj2_Right=rightSide(obj2);
+  var obj2_Up=upSide(obj2);
+  var obj2_Down=downSide(obj2);
 
-	if(obj1_Right>=obj2_Left&&obj1_Left<=obj2_Right && obj1_Down<=obj2_Up+7 && obj1_Down>=obj2_Up-7){
-		// println("YES");
-		obj1.velocity.y = 0;
-		obj1.position.y=obj2_Up-(obj1.height/2)-1;
-		obj1.standOnObj= true;
-	}
+  if(obj1_Right>=obj2_Left&&obj1_Left<=obj2_Right && obj1_Down<=obj2_Up+7 && obj1_Down>=obj2_Up-7){
+    // println("YES");
+    obj1.velocity.y = 0;
+    obj1.position.y=obj2_Up-(obj1.height/2)-1;
+    obj1.standOnObj= true;
+  }
 }
 
 /* See if  obj1 step on obj2 to kill it*/
 function StepOnEnemy(obj1,obj2){
   
-	var obj1_Left=leftSide(obj1);
-	var obj1_Right=rightSide(obj1);
-	var obj1_Up=upSide(obj1);
-	var obj1_Down=downSide(obj1);
+  var obj1_Left=leftSide(obj1);
+  var obj1_Right=rightSide(obj1);
+  var obj1_Up=upSide(obj1);
+  var obj1_Down=downSide(obj1);
 
-	var obj2_Left=leftSide(obj2);
-	var obj2_Right=rightSide(obj2);
-	var obj2_Up=upSide(obj2);
-	var obj2_Down=downSide(obj2);
+  var obj2_Left=leftSide(obj2);
+  var obj2_Right=rightSide(obj2);
+  var obj2_Up=upSide(obj2);
+  var obj2_Down=downSide(obj2);
 
-	if(obj1_Right>=obj2_Left&&obj1_Left<=obj2_Right && obj1_Down<=obj2_Up+7 && obj1_Down>=obj2_Up-7 && obj2.live==true && obj2.touching.top){
-		obj2.live=false;
+  if(obj1_Right>=obj2_Left&&obj1_Left<=obj2_Right && obj1_Down<=obj2_Up+7 && obj1_Down>=obj2_Up-7 && obj2.live==true && obj2.touching.top){
+    obj2.live=false;
     obj1.killing=30;
     obj1.kills++;
     if(obj1.velocity.y>=gameConfig.jump*0.8){
@@ -368,7 +367,7 @@ function StepOnEnemy(obj1,obj2){
       obj1.velocity.y+=gameConfig.jump*0.8;
     }
     mario_kick.play();
-	}
+  }
 }
 
 
@@ -422,7 +421,7 @@ function dontGetOutOfScreen(character){
   }
 
   if(character.position.x>gameConfig.screenX-(character.width*0.5)){
-  	character.position.x=gameConfig.screenX-(character.width*0.5);
+    character.position.x=gameConfig.screenX-(character.width*0.5);
   }else if(character.position.x<character.width*0.5){
     if(character==mario){
       character.position.x=character.width*0.5;
@@ -444,8 +443,8 @@ function dontGetOutOfScreen(character){
 function enemys(enemys){
     enemys.forEach(function(enemy){
       stateOfEnemy(enemy);
-	    positionOfEnemy(enemy);
-	    enemy.position.x-=gameConfig.enemyMoveSpeed;
+      positionOfEnemy(enemy);
+      enemy.position.x-=gameConfig.enemyMoveSpeed;
   });
 } 
 
@@ -461,13 +460,13 @@ function stateOfEnemy(enemy){
 /* Make enemy standing on objs */
 function positionOfEnemy(enemy){
 
-	platforms.forEach(function(element){ enemyStandOnObjs(enemy, element); });
-	bricks.forEach(function(element){ enemyStandOnObjs(enemy, element);});
+  platforms.forEach(function(element){ enemyStandOnObjs(enemy, element); });
+  bricks.forEach(function(element){ enemyStandOnObjs(enemy, element);});
   pipes.forEach(function(element){ enemyStandOnObjs(enemy, element); })
-	
-	enemy.position.y+=gameConfig.gravityEnemy;
+  
+  enemy.position.y+=gameConfig.gravityEnemy;
 
-	dontGetOutOfScreen(enemy);
+  dontGetOutOfScreen(enemy);
 }
 
 
@@ -560,19 +559,19 @@ function environmentScrolling(group,environmentScrollingSpeed){
 
 /* for position state of character */
 function debugging(character){
-	strokeWeight(1);
-	fill(255);
-	textSize(12);
+  strokeWeight(1);
+  fill(255);
+  textSize(12);
   text(character.dying, 20,20);
-	text(gameConfig.status, 20,80);
-	// text("v: "+character.velocity.y,150,20);
-	noFill();
-	// outline(tube01);
-	stroke(251);
-	strokeWeight(2);
-	outline(character);
+  text(gameConfig.status, 20,80);
+  // text("v: "+character.velocity.y,150,20);
+  noFill();
+  // outline(tube01);
+  stroke(251);
+  strokeWeight(2);
+  outline(character);
 
-	pipes.forEach(function(element){ outline(element); });
+  pipes.forEach(function(element){ outline(element); });
   enemyMushrooms.forEach(function(element){ outline(element); });
 
 }
@@ -629,5 +628,3 @@ function upSide(obj){ return obj.position.y-(obj.height/2);}
 function downSide(obj){ return obj.position.y+(obj.height/2);}
 
 /*=====  End of For Debugging  ======*/
-
-
